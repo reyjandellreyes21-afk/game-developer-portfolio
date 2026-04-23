@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neon Siege</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="game-shell">
+    <header class="hud-top">
+      <div class="brand">
+        <h1>Neon Siege</h1>
+        <p>Survive. Upgrade. Defeat the Core Titan.</p>
+      </div>
+      <div class="controls-top" aria-label="Game controls">
+        <span class="control-item"><kbd>WASD</kbd> Move</span>
+        <span class="control-item"><kbd>Mouse</kbd> Aim</span>
+        <span class="control-item"><kbd>LMB</kbd> Shoot</span>
+        <span class="control-item"><kbd>Shift</kbd> Dash</span>
+      </div>
+      <div class="stats">
+        <div class="stat"><span>Wave</span><strong id="waveLabel">1</strong></div>
+        <div class="stat"><span>Score</span><strong id="scoreLabel">0</strong></div>
+        <div class="stat"><span>Best</span><strong id="bestLabel">0</strong></div>
+        <div class="stat"><span>Enemies</span><strong id="enemyLabel">0</strong></div>
+      </div>
+      <div class="actions-top">
+        <button id="pauseBtn" class="secondary-btn" type="button">Pause</button>
+        <button id="settingsBtn" class="secondary-btn" type="button">Settings</button>
+      </div>
+    </header>
+
+    <section class="arena-wrap">
+      <canvas id="gameCanvas" width="1000" height="620" aria-label="Neon Siege game arena"></canvas>
+
+      <div id="startOverlay" class="overlay active">
+        <div class="card">
+          <h2>Ready for Battle?</h2>
+          <p>
+            Move with <kbd>W A S D</kbd> or arrows, dash with <kbd>Shift</kbd>,
+            and shoot with <kbd>Mouse Left</kbd>.
+          </p>
+          <p class="tip">Tip: Dash gives brief invulnerability. Press <kbd>Esc</kbd> to pause.</p>
+          <button id="startBtn">Start Game</button>
+        </div>
+      </div>
+
+      <div id="upgradeOverlay" class="overlay">
+        <div class="card">
+          <h2>Choose an Upgrade</h2>
+          <p>Wave cleared! Pick one enhancement before the next wave.</p>
+          <div id="upgradeOptions" class="choices"></div>
+        </div>
+      </div>
+
+      <div id="gameOverOverlay" class="overlay">
+        <div class="card">
+          <h2>Mission Failed</h2>
+          <p id="finalStats"></p>
+          <button id="restartBtn">Play Again</button>
+        </div>
+      </div>
+
+      <div id="pauseOverlay" class="overlay">
+        <div class="card">
+          <h2>Paused</h2>
+          <p>Take a breath, tune settings, then jump back in.</p>
+          <div class="settings-grid">
+            <label for="musicVolume">Music Volume</label>
+            <input id="musicVolume" type="range" min="0" max="1" step="0.01" value="0.35" />
+
+            <label for="sfxVolume">SFX Volume</label>
+            <input id="sfxVolume" type="range" min="0" max="1" step="0.01" value="0.65" />
+
+            <label for="qualityMode">Effects Quality</label>
+            <select id="qualityMode">
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+
+            <label for="reduceMotion">Reduced Motion</label>
+            <input id="reduceMotion" type="checkbox" />
+          </div>
+          <div class="pause-actions">
+            <button id="resumeBtn" type="button">Resume</button>
+            <button id="pauseRestartBtn" class="secondary-btn" type="button">Restart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="touch-controls" id="touchControls" aria-hidden="true">
+        <div class="touch-stick" id="touchStick">
+          <div class="touch-knob" id="touchKnob"></div>
+        </div>
+        <div class="touch-actions">
+          <button id="touchFire" type="button" aria-label="Shoot">Fire</button>
+          <button id="touchDash" type="button" aria-label="Dash">Dash</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="hud-bottom">
+      <div class="bar-wrap">
+        <label>HP</label>
+        <div class="bar"><div id="hpBar" class="fill hp"></div></div>
+        <span id="hpText">100 / 100</span>
+      </div>
+      <div class="bar-wrap">
+        <label>Dash</label>
+        <div class="bar"><div id="dashBar" class="fill dash"></div></div>
+        <span id="dashText">Ready</span>
+      </div>
+      <div class="bar-wrap boss-wrap" id="bossWrap">
+        <label>Boss</label>
+        <div class="bar"><div id="bossBar" class="fill boss"></div></div>
+        <span id="bossText">Dormant</span>
+      </div>
+      <div class="modules-wrap">
+        <label>Modules</label>
+        <div id="moduleList" class="module-list"></div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="./index.js"></script>
+</body>
+</html>
